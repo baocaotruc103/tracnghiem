@@ -72,12 +72,32 @@ export default function AuthPage({ setSession }) {
   };
 
   return (
-    <div className="container flex items-center justify-center animate-fade-in" style={{minHeight: '100vh'}}>
-      <div className="glass-panel" style={{maxWidth: '400px', width: '100%'}}>
-        <h1 className="text-h2 text-center mb-6">
-          {isLogin ? 'Đăng Nhập' : 'Tạo Tài Khoản'}
-        </h1>
+    <div style={{
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      background: 'var(--background)',
+      padding: '16px'
+    }}>
+      <div className="glass-panel animate-fade-in" style={{
+        width: '100%', 
+        maxWidth: '420px', 
+        padding: '40px',
+        margin: '0 auto'
+      }}>
         
+        <div className="text-center mb-8">
+          <img 
+            src="https://i.postimg.cc/YSf7nw74/logo-103-min.png" 
+            alt="Logo Bệnh Viện 103" 
+            style={{ height: '100px', width: 'auto', margin: '0 auto 16px' }} 
+          />
+          <h2 className="text-primary" style={{ fontSize: '1.2rem', fontWeight: 800, textTransform: 'uppercase', lineHeight: '1.4' }}>
+            Hệ thống ôn thi trắc nghiệm<br/>Điều dưỡng
+          </h2>
+        </div>
+
         {error && (
           <div className="badge badge-danger mb-4" style={{width: '100%', padding: '12px', textAlign: 'center'}}>
             {error}
@@ -117,18 +137,18 @@ export default function AuthPage({ setSession }) {
           </button>
         </form>
 
-        <div className="text-center mt-6">
-          <p className="text-muted">
-            {isLogin ? "Chưa có tài khoản? " : "Đã có tài khoản? "}
-            <button 
-              type="button"
-              className="text-primary" 
-              style={{background: 'transparent', fontWeight: 'bold'}}
-              onClick={() => setIsLogin(!isLogin)}
-            >
-              {isLogin ? 'Đăng ký ngay' : 'Đăng nhập'}
-            </button>
+        <div className="text-center mt-8 pt-6" style={{borderTop: '1px solid #E2E8F0'}}>
+          <p className="text-muted mb-4">
+            {isLogin ? "Chưa có tài khoản? Tham gia ngay!" : "Đã có tài khoản? Chào mừng trở lại!"}
           </p>
+          <button 
+            type="button"
+            className="btn-outline-primary" 
+            style={{width: '100%', justifyContent: 'center'}}
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? 'Tạo Tài Khoản Mới' : 'Quay Lại Đăng Nhập'}
+          </button>
         </div>
       </div>
     </div>

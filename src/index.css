@@ -101,6 +101,24 @@ button {
   border-color: #94A3B8;
 }
 
+.btn-outline-primary {
+  background: #EEF2FF;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+}
+
 .input-field {
   width: 100%;
   background: #FFFFFF;
