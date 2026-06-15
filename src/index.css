@@ -460,6 +460,10 @@ tr:hover td {
     margin-right: 16px;
     font-size: 0.85rem;
   }
+
+  .mobile-uppercase {
+    text-transform: uppercase;
+  }
 }
 
 /* Auth Title styling */

@@ -70,9 +70,9 @@ export default function Dashboard({ session, setSession }) {
             <img 
               src="https://i.postimg.cc/YSf7nw74/logo-103-min.png" 
               alt="Logo Bệnh Viện 103" 
-              style={{ height: '50px', width: 'auto' }} 
+              style={{ height: '50px', width: 'auto', flexShrink: 0 }} 
             />
-            <h1 className="text-primary m-0" style={{ fontSize: '1.25rem', fontWeight: 800, textTransform: 'uppercase', lineHeight: '1.3' }}>
+            <h1 className="m-0 auth-title" style={{ color: '#009900' }}>
               HỆ THỐNG ÔN THI<br/>TRẮC NGHIỆM ĐIỀU DƯỠNG
             </h1>
           </div>
@@ -118,16 +118,16 @@ export default function Dashboard({ session, setSession }) {
       <div className="grid grid-cols-2 gap-6">
         <div className="glass-panel">
           <h2 className="text-h2 flex items-center gap-2 mb-6">
-            <Trophy color="gold" /> Top 10 Bảng Xếp Hạng
+            <Trophy color="gold" /> Top điểm cao
           </h2>
           <div className="table-container">
             <table>
               <thead>
                 <tr>
                   <th>Hạng</th>
-                  <th>Người tham gia</th>
+                  <th>Tên</th>
                   <th>Điểm</th>
-                  <th>Ngày Thi</th>
+                  <th>Thời gian thi</th>
                 </tr>
               </thead>
               <tbody>
@@ -146,13 +146,26 @@ export default function Dashboard({ session, setSession }) {
                         {index === 0 ? '🥇 #1' : index === 1 ? '🥈 #2' : index === 2 ? '🥉 #3' : `#${index + 1}`}
                       </span>
                     </td>
-                    <td data-label="Người tham gia" className={index < 3 ? 'font-bold' : ''} style={{ fontSize: index === 0 ? '1.1rem' : '1rem' }}>
+                    <td data-label="Tên" className={`mobile-uppercase ${index < 3 ? 'font-bold' : ''}`} style={{ 
+                      fontSize: index === 0 ? '1.1rem' : '1rem',
+                      color: index === 0 ? '#009900' : 'inherit',
+                      fontWeight: index === 0 ? '900' : (index < 3 ? '700' : 'normal')
+                    }}>
                       {attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}
                     </td>
-                    <td data-label="Điểm" className="font-bold text-primary" style={{ fontSize: index === 0 ? '1.2rem' : '1rem' }}>
+                    <td data-label="Điểm" className="font-bold" style={{ 
+                      fontSize: index === 0 ? '1.2rem' : '1rem',
+                      color: index === 0 ? '#009900' : 'var(--primary)',
+                      fontWeight: index === 0 ? '900' : '700'
+                    }}>
                       {attempt.score}/{attempt.total_questions}
                     </td>
-                    <td data-label="Ngày Thi" className="text-muted">{new Date(attempt.created_at).toLocaleDateString('vi-VN')}</td>
+                    <td data-label="Thời gian thi" className={index === 0 ? 'font-bold' : 'text-muted'} style={{
+                      color: index === 0 ? '#009900' : 'inherit',
+                      fontWeight: index === 0 ? '900' : 'normal'
+                    }}>
+                      {new Date(attempt.created_at).toLocaleString('vi-VN')}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -161,7 +174,9 @@ export default function Dashboard({ session, setSession }) {
         </div>
 
         <div className="glass-panel">
-          <h2 className="text-h2 mb-6">Lịch Sử Làm Bài Của Bạn</h2>
+          <h2 className="text-h2 mb-6" style={{ fontSize: 'clamp(1.1rem, 4.5vw, 1.8rem)', whiteSpace: 'nowrap' }}>
+            Lịch Sử Làm Bài Của Bạn
+          </h2>
           <div className="table-container">
             <table>
               <thead>
