@@ -468,6 +468,7 @@ tr:hover td {
 
 /* Auth Title styling */
 .auth-title {
+  font-size: 1.2rem;
   font-size: clamp(0.9rem, 4.5vw, 1.4rem) !important;
   font-weight: 800;
   text-transform: uppercase;
