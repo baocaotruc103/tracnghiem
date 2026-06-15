@@ -66,8 +66,17 @@ export default function Dashboard({ session, setSession }) {
     <div className="container animate-fade-in" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="flex justify-between items-center mb-8 mobile-header-stack">
         <div>
-          <h1 className="text-h1 mb-0">Tổng Quan</h1>
-          <p className="text-muted">Chào mừng trở lại, {session.full_name || session.username}</p>
+          <div className="flex items-center gap-4 mb-2">
+            <img 
+              src="https://i.postimg.cc/YSf7nw74/logo-103-min.png" 
+              alt="Logo Bệnh Viện 103" 
+              style={{ height: '50px', width: 'auto' }} 
+            />
+            <h1 className="text-primary m-0" style={{ fontSize: '1.25rem', fontWeight: 800, textTransform: 'uppercase', lineHeight: '1.3' }}>
+              HỆ THỐNG ÔN THI<br/>TRẮC NGHIỆM ĐIỀU DƯỠNG
+            </h1>
+          </div>
+          <p className="text-muted mt-2">Chào mừng trở lại, <strong style={{color: 'var(--text-main)'}}>{session.full_name || session.username}</strong></p>
         </div>
         <button onClick={handleLogout} className="btn-secondary flex items-center gap-2">
           <LogOut size={18}/> Đăng xuất
@@ -75,16 +84,24 @@ export default function Dashboard({ session, setSession }) {
       </div>
 
       <div className="grid grid-cols-3 gap-6 mb-8">
-        <div className="glass-panel stat-card">
-          <Users size={32} color="var(--primary)" />
-          <h3 className="text-h3 mt-4 text-muted">Lượt đăng ký</h3>
-          <div className="stat-value">{stats.usersCount}</div>
+        <div className="glass-panel stat-card" style={{ 
+          padding: '20px 16px', 
+          background: 'linear-gradient(135deg, #EEF2FF, #E0E7FF)', 
+          borderColor: '#C7D2FE' 
+        }}>
+          <Users size={28} color="var(--primary)" />
+          <h3 className="text-h3 mt-2 mb-0" style={{ color: '#4F46E5', fontSize: '0.95rem' }}>Lượt đăng ký</h3>
+          <div className="stat-value" style={{ marginTop: '0', fontSize: '2.5rem' }}>{stats.usersCount}</div>
         </div>
         
-        <div className="glass-panel stat-card">
-          <BookOpen size={32} color="var(--success)" />
-          <h3 className="text-h3 mt-4 text-muted">Lượt làm bài</h3>
-          <div className="stat-value">{stats.testsCount}</div>
+        <div className="glass-panel stat-card" style={{ 
+          padding: '20px 16px', 
+          background: 'linear-gradient(135deg, #ECFDF5, #D1FAE5)', 
+          borderColor: '#A7F3D0' 
+        }}>
+          <BookOpen size={28} color="var(--success)" />
+          <h3 className="text-h3 mt-2 mb-0" style={{ color: '#059669', fontSize: '0.95rem' }}>Lượt làm bài</h3>
+          <div className="stat-value" style={{ marginTop: '0', fontSize: '2.5rem', color: 'var(--success)' }}>{stats.testsCount}</div>
         </div>
 
         <div className="glass-panel flex flex-col items-center justify-center text-center p-4">
@@ -108,7 +125,7 @@ export default function Dashboard({ session, setSession }) {
               <thead>
                 <tr>
                   <th>Hạng</th>
-                  <th>Người Chơi</th>
+                  <th>Người tham gia</th>
                   <th>Điểm</th>
                   <th>Ngày Thi</th>
                 </tr>
@@ -119,14 +136,23 @@ export default function Dashboard({ session, setSession }) {
                 )}
                 {top10.map((attempt, index) => (
                   <tr key={attempt.id}>
-                    <td>
-                      <span className={`badge ${index === 0 ? 'badge-primary' : 'badge-success'}`}>
-                        #{index + 1}
+                    <td data-label="Hạng">
+                      <span className="badge" style={{
+                        background: index === 0 ? '#FEF3C7' : index === 1 ? '#F3F4F6' : index === 2 ? '#FEF2F2' : '#EEF2FF',
+                        color: index === 0 ? '#D97706' : index === 1 ? '#4B5563' : index === 2 ? '#B91C1C' : 'var(--primary)',
+                        fontSize: index < 3 ? '1rem' : '0.85rem',
+                        padding: index < 3 ? '6px 16px' : '4px 12px'
+                      }}>
+                        {index === 0 ? '🥇 #1' : index === 1 ? '🥈 #2' : index === 2 ? '🥉 #3' : `#${index + 1}`}
                       </span>
                     </td>
-                    <td>{attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}</td>
-                    <td className="font-bold text-primary">{attempt.score}/{attempt.total_questions}</td>
-                    <td>{new Date(attempt.created_at).toLocaleDateString('vi-VN')}</td>
+                    <td data-label="Người tham gia" className={index < 3 ? 'font-bold' : ''} style={{ fontSize: index === 0 ? '1.1rem' : '1rem' }}>
+                      {attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}
+                    </td>
+                    <td data-label="Điểm" className="font-bold text-primary" style={{ fontSize: index === 0 ? '1.2rem' : '1rem' }}>
+                      {attempt.score}/{attempt.total_questions}
+                    </td>
+                    <td data-label="Ngày Thi" className="text-muted">{new Date(attempt.created_at).toLocaleDateString('vi-VN')}</td>
                   </tr>
                 ))}
               </tbody>
@@ -147,23 +173,40 @@ export default function Dashboard({ session, setSession }) {
               </thead>
               <tbody>
                 {history.length === 0 && (
-                  <tr><td colSpan="3" className="text-center text-muted">Bạn chưa có bài thi nào</td></tr>
-                )}
-                {history.map((attempt) => (
-                  <tr key={attempt.id}>
-                    <td>{new Date(attempt.created_at).toLocaleString('vi-VN')}</td>
-                    <td className="font-bold">{attempt.score}/{attempt.total_questions}</td>
-                    <td>
-                      <button 
-                        onClick={() => navigate(`/result/${attempt.id}`)}
-                        className="btn-secondary"
-                        style={{ padding: '6px 12px', fontSize: '0.85rem' }}
-                      >
-                        Xem chi tiết
-                      </button>
+                  <tr>
+                    <td colSpan="3" className="text-center text-muted" style={{ padding: '32px' }}>
+                      <BookOpen size={48} className="mx-auto mb-4 opacity-50" />
+                      <p>Bạn chưa hoàn thành bài thi nào.</p>
                     </td>
                   </tr>
-                ))}
+                )}
+                {history.map((attempt) => {
+                  const percentage = (attempt.score / attempt.total_questions) * 100;
+                  const isPass = percentage >= 50;
+                  return (
+                    <tr key={attempt.id}>
+                      <td data-label="Ngày Thi">{new Date(attempt.created_at).toLocaleString('vi-VN')}</td>
+                      <td data-label="Điểm Số">
+                        <span className="badge" style={{
+                          background: isPass ? '#ECFDF5' : '#FEF2F2',
+                          color: isPass ? '#059669' : '#DC2626',
+                          fontSize: '1rem'
+                        }}>
+                          {attempt.score} / {attempt.total_questions}
+                        </span>
+                      </td>
+                      <td data-label="Hành Động">
+                        <button 
+                          onClick={() => navigate(`/result/${attempt.id}`)}
+                          className="btn-secondary"
+                          style={{ padding: '8px 16px', fontSize: '0.9rem', borderRadius: '8px' }}
+                        >
+                          Xem kết quả
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

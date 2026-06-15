@@ -407,3 +407,66 @@ th {
 tr:hover td {
   background: #F1F5F9;
 }
+
+/* Mobile Table Card Layout */
+@media (max-width: 768px) {
+  .sticky-action-bar {
+    padding: 12px;
+  }
+  
+  .table-container table, 
+  .table-container thead, 
+  .table-container tbody, 
+  .table-container th, 
+  .table-container td, 
+  .table-container tr {
+    display: block;
+  }
+  
+  .table-container thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .table-container tr {
+    margin-bottom: 16px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #E2E8F0;
+  }
+  
+  .table-container td {
+    border: none;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #F1F5F9;
+  }
+  
+  .table-container td:last-child {
+    border-bottom: none;
+  }
+  
+  .table-container td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: left;
+    flex-shrink: 0;
+    margin-right: 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Auth Title styling */
+.auth-title {
+  font-size: clamp(0.9rem, 4.5vw, 1.4rem) !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.4;
+  white-space: nowrap;
+}

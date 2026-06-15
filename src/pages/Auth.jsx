@@ -17,11 +17,11 @@ export default function AuthPage({ setSession }) {
 
     try {
       if (isLogin) {
-        // Đăng nhập: Tìm kiếm trong bảng users
+        // Đăng nhập: Tìm kiếm trong bảng users (case-insensitive username)
         const { data, error: fetchError } = await supabase
           .from('users')
           .select('*')
-          .eq('ten_dang_nhap', username)
+          .ilike('ten_dang_nhap', username)
           .eq('mat_khau', password)
           .single();
 
@@ -39,11 +39,11 @@ export default function AuthPage({ setSession }) {
         setSession(userSession);
 
       } else {
-        // Đăng ký: Kiểm tra tên đăng nhập đã tồn tại chưa
+        // Đăng ký: Kiểm tra tên đăng nhập đã tồn tại chưa (case-insensitive)
         const { data: existingUser } = await supabase
           .from('users')
           .select('id')
-          .eq('ten_dang_nhap', username)
+          .ilike('ten_dang_nhap', username)
           .single();
 
         if (existingUser) {
@@ -93,8 +93,8 @@ export default function AuthPage({ setSession }) {
             alt="Logo Bệnh Viện 103" 
             style={{ height: '100px', width: 'auto', margin: '0 auto 16px' }} 
           />
-          <h2 className="text-primary" style={{ fontSize: '1.2rem', fontWeight: 800, textTransform: 'uppercase', lineHeight: '1.4' }}>
-            Hệ thống ôn thi trắc nghiệm<br/>Điều dưỡng
+          <h2 className="text-primary auth-title">
+            HỆ THỐNG ÔN THI<br/>TRẮC NGHIỆM ĐIỀU DƯỠNG
           </h2>
         </div>
 
