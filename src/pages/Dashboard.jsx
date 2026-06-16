@@ -128,7 +128,7 @@ export default function Dashboard({ session, setSession }) {
             )}
             {top10.map((attempt, index) => (
               <div key={attempt.id} className="top-score-item" style={{ padding: '10px 0', borderBottom: index < top10.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
-                <div className="flex justify-between items-center mb-1">
+                <div className="flex justify-between items-center" style={{ marginBottom: '6px' }}>
                   <span className="badge" style={{
                     background: index === 0 ? '#FEF3C7' : index === 1 ? '#F3F4F6' : index === 2 ? '#FEF2F2' : '#EEF2FF',
                     color: index === 0 ? '#D97706' : index === 1 ? '#4B5563' : index === 2 ? '#B91C1C' : 'var(--primary)',
@@ -149,7 +149,7 @@ export default function Dashboard({ session, setSession }) {
                   fontSize: index === 0 ? '1.05rem' : '0.95rem',
                   color: index === 0 ? '#009900' : 'var(--text-main)',
                   fontWeight: index === 0 ? '800' : (index < 3 ? '700' : '600'),
-                  marginBottom: '2px',
+                  marginBottom: '6px',
                   lineHeight: 1.3
                 }}>
                   {attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}
