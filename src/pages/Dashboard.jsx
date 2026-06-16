@@ -122,56 +122,48 @@ export default function Dashboard({ session, setSession }) {
           <h2 className="text-h2 flex items-center gap-2 mb-6">
             <Trophy color="gold" /> Top điểm cao
           </h2>
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Hạng</th>
-                  <th>Tên</th>
-                  <th>Điểm</th>
-                  <th>Thời gian thi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {top10.length === 0 && (
-                  <tr><td colSpan="4" className="text-center text-muted">Chưa có dữ liệu</td></tr>
-                )}
-                {top10.map((attempt, index) => (
-                  <tr key={attempt.id}>
-                    <td data-label="Hạng">
-                      <span className="badge" style={{
-                        background: index === 0 ? '#FEF3C7' : index === 1 ? '#F3F4F6' : index === 2 ? '#FEF2F2' : '#EEF2FF',
-                        color: index === 0 ? '#D97706' : index === 1 ? '#4B5563' : index === 2 ? '#B91C1C' : 'var(--primary)',
-                        fontSize: index < 3 ? '1rem' : '0.85rem',
-                        padding: index < 3 ? '6px 16px' : '4px 12px'
-                      }}>
-                        {index === 0 ? '🥇 #1' : index === 1 ? '🥈 #2' : index === 2 ? '🥉 #3' : `#${index + 1}`}
-                      </span>
-                    </td>
-                    <td data-label="Tên" className={`mobile-uppercase ${index < 3 ? 'font-bold' : ''}`} style={{ 
-                      fontSize: index === 0 ? '1.1rem' : '1rem',
-                      color: index === 0 ? '#009900' : 'inherit',
-                      fontWeight: index === 0 ? '900' : (index < 3 ? '700' : 'normal')
-                    }}>
-                      {attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}
-                    </td>
-                    <td data-label="Điểm" className="font-bold" style={{ 
-                      fontSize: index === 0 ? '1.2rem' : '1rem',
-                      color: index === 0 ? '#009900' : 'var(--primary)',
-                      fontWeight: index === 0 ? '900' : '700'
-                    }}>
-                      {attempt.score}/{attempt.total_questions}
-                    </td>
-                    <td data-label="Thời gian thi" className={index === 0 ? 'font-bold' : 'text-muted'} style={{
-                      color: index === 0 ? '#009900' : 'inherit',
-                      fontWeight: index === 0 ? '900' : 'normal'
-                    }}>
-                      {new Date(attempt.created_at).toLocaleString('vi-VN')}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="top-scores-list">
+            {top10.length === 0 && (
+              <div className="text-center text-muted py-4">Chưa có dữ liệu</div>
+            )}
+            {top10.map((attempt, index) => (
+              <div key={attempt.id} className="top-score-item" style={{ padding: '10px 0', borderBottom: index < top10.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="badge" style={{
+                    background: index === 0 ? '#FEF3C7' : index === 1 ? '#F3F4F6' : index === 2 ? '#FEF2F2' : '#EEF2FF',
+                    color: index === 0 ? '#D97706' : index === 1 ? '#4B5563' : index === 2 ? '#B91C1C' : 'var(--primary)',
+                    fontSize: index < 3 ? '0.95rem' : '0.85rem',
+                    padding: '4px 12px'
+                  }}>
+                    {index === 0 ? '🥇 #1' : index === 1 ? '🥈 #2' : index === 2 ? '🥉 #3' : `#${index + 1}`}
+                  </span>
+                  <span className="font-bold" style={{ 
+                    fontSize: index === 0 ? '1.2rem' : '1.05rem',
+                    color: index === 0 ? '#009900' : 'var(--primary)',
+                    fontWeight: index === 0 ? '900' : '700'
+                  }}>
+                    {attempt.score}/{attempt.total_questions}
+                  </span>
+                </div>
+                <div className={`mobile-uppercase ${index < 3 ? 'font-bold' : ''}`} style={{ 
+                  fontSize: index === 0 ? '1.05rem' : '0.95rem',
+                  color: index === 0 ? '#009900' : 'var(--text-main)',
+                  fontWeight: index === 0 ? '800' : (index < 3 ? '700' : '600'),
+                  marginBottom: '2px',
+                  lineHeight: 1.3
+                }}>
+                  {attempt.users?.ho_ten || attempt.users?.ten_dang_nhap || 'Ẩn danh'}
+                </div>
+                <div className={index === 0 ? 'font-bold' : 'text-muted'} style={{
+                  color: index === 0 ? '#009900' : 'var(--text-muted)',
+                  fontWeight: index === 0 ? '700' : 'normal',
+                  fontSize: '0.85rem',
+                  lineHeight: 1.3
+                }}>
+                  {new Date(attempt.created_at).toLocaleString('vi-VN')}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
