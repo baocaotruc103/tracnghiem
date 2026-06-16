@@ -119,7 +119,13 @@ export default function Dashboard({ session, setSession }) {
 
       <div className="grid grid-cols-2 gap-6">
         <div className="glass-panel">
-          <h2 className="text-h2 flex items-center gap-2 mb-6">
+          <h2 className="text-h2 flex items-center justify-center gap-2 mb-6" style={{
+            background: '#009900',
+            color: 'white',
+            padding: '16px',
+            borderRadius: '16px',
+            marginTop: '-8px'
+          }}>
             <Trophy color="gold" /> Top điểm cao
           </h2>
           <div className="top-scores-list">
