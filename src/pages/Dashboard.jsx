@@ -9,6 +9,7 @@ export default function Dashboard({ session, setSession }) {
   const [top10, setTop10] = useState([]);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     fetchDashboardData();
@@ -106,7 +107,7 @@ export default function Dashboard({ session, setSession }) {
 
         <div className="glass-panel flex flex-col items-center justify-center text-center p-4">
           <button 
-            onClick={() => navigate('/test')} 
+            onClick={() => setShowOptions(true)} 
             className="btn-primary" 
             style={{ fontSize: '1.2rem', padding: '16px 24px', width: '100%', height: '100%' }}
           >
@@ -227,6 +228,34 @@ export default function Dashboard({ session, setSession }) {
           </div>
         </div>
       </div>
+
+      {showOptions && (
+        <div className="modal-overlay" onClick={() => setShowOptions(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h2 className="text-h2 mb-6">Chọn Chế Độ Thi</h2>
+            
+            <button className="modal-option-btn" onClick={() => navigate('/test', { state: { mode: '100' } })}>
+              Mặc định (100 câu)
+            </button>
+            
+            <button className="modal-option-btn" onClick={() => navigate('/test', { state: { mode: '50' } })}>
+              Ngắn gọn (50 câu)
+            </button>
+            
+            <button className="modal-option-btn" onClick={() => navigate('/test', { state: { mode: 'wrong' } })}>
+              Các câu làm sai
+            </button>
+
+            <button 
+              className="btn-secondary mt-4 w-full" 
+              onClick={() => setShowOptions(false)}
+              style={{ width: '100%' }}
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

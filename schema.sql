@@ -64,6 +64,8 @@ create table public.test_attempts (
   score integer not null,
   total_questions integer not null,
   answers_data jsonb,
+  ma_de text,
+  questions_list jsonb,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
