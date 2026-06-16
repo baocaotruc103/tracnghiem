@@ -136,8 +136,8 @@ export default function Dashboard({ session, setSession }) {
               <div key={attempt.id} className="top-score-item" style={{ padding: '10px 0', borderBottom: index < top10.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
                 <div className="flex justify-between items-center" style={{ marginBottom: '6px' }}>
                   <span className="badge" style={{
-                    background: index === 0 ? '#FEF3C7' : index === 1 ? '#F3F4F6' : index === 2 ? '#FEF2F2' : '#EEF2FF',
-                    color: index === 0 ? '#D97706' : index === 1 ? '#4B5563' : index === 2 ? '#B91C1C' : 'var(--primary)',
+                    background: index === 0 ? '#FEF3C7' : index === 1 ? '#E2E8F0' : index === 2 ? '#FFEDD5' : '#EEF2FF',
+                    color: index === 0 ? '#D97706' : index === 1 ? '#475569' : index === 2 ? '#9A3412' : 'var(--primary)',
                     fontSize: index < 3 ? '0.95rem' : '0.85rem',
                     padding: '4px 12px'
                   }}>
