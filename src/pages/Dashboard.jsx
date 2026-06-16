@@ -133,11 +133,18 @@ export default function Dashboard({ session, setSession }) {
               <div className="text-center text-muted py-4">Chưa có dữ liệu</div>
             )}
             {top10.map((attempt, index) => (
-              <div key={attempt.id} className="top-score-item" style={{ padding: '10px 0', borderBottom: index < top10.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
+              <div key={attempt.id} className="top-score-item" style={{ 
+                padding: index < 3 ? '12px' : '10px 0', 
+                background: index === 0 ? '#FEF9C3' : index === 1 ? '#F1F5F9' : index === 2 ? '#FFEDD5' : 'transparent',
+                border: index === 0 ? '1px solid #FDE047' : index === 1 ? '1px solid #CBD5E1' : index === 2 ? '1px solid #FDBA74' : '1px solid transparent',
+                borderRadius: index < 3 ? '12px' : '0',
+                borderBottom: index >= 3 && index < top10.length - 1 ? '1px solid #E2E8F0' : (index >= 3 ? 'none' : ''),
+                marginBottom: index < 3 ? '12px' : '0'
+              }}>
                 <div className="flex justify-between items-center" style={{ marginBottom: '6px' }}>
                   <span className="badge" style={{
-                    background: index === 0 ? '#FEF3C7' : index === 1 ? '#E2E8F0' : index === 2 ? '#FFEDD5' : '#EEF2FF',
-                    color: index === 0 ? '#D97706' : index === 1 ? '#475569' : index === 2 ? '#9A3412' : 'var(--primary)',
+                    background: index === 0 ? '#FACC15' : index === 1 ? '#94A3B8' : index === 2 ? '#F97316' : '#EEF2FF',
+                    color: index < 3 ? '#FFFFFF' : 'var(--primary)',
                     fontSize: index < 3 ? '0.95rem' : '0.85rem',
                     padding: '4px 12px'
                   }}>
